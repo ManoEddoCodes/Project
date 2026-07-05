@@ -12,6 +12,9 @@ const productSchema = new mongoose.Schema(
         required: [true, "Owner Name is required"],
         trim: true
         },
+        description: {
+          type: String,
+        },
         price: {
         type: Number,
         required: [true, "Product Price is required"],
@@ -24,9 +27,21 @@ const productSchema = new mongoose.Schema(
         },
         stock: {
         type: Number,
-        default: 0,
+        default: 1,
         min: [0, "Stock cannot be negative"]
         },
+        inStock: {
+            type: Boolean,
+            default: true
+        },
+        slug: {
+            type: String,
+            lowercase: true,
+            trim: true
+        },
+        images: [{
+            type: String
+        }]
     }, 
     { 
         timestamps: true 

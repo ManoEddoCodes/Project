@@ -10,6 +10,11 @@ const categorySchema = new mongoose.Schema(
         },
         description: {
             type: String
+        },
+        slug: {
+            type: String,
+            lowercase: true,
+            trim: true
         }
     },
     {
