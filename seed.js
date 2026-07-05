@@ -76,7 +76,7 @@ async function seedDB() {
     } catch (error){
         console.log("An errorhas occured while seeding:", error.message)
     } finally {
-        await mongoose.connection.close()
+        await mongoose.disconnect()
         process.exit(0)
     }
 }
