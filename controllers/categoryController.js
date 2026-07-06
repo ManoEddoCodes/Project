@@ -69,18 +69,26 @@ const updateCategory = asyncHandler(async (req,res,next) => {
 })
 
 const deleteCategory = asyncHandler(async (req, res, next) => {
-    const categoryId = req.params.id
+    const {id} = req.params.id
 
-    const category = await Category.findById(categoryId)
+    const category = await Category.findById(id)
     if (!category) {
         return next(new AppError('Cannot find a category with that id.', 404))
     }
 
-    const productsCount = await Product.countDocuments({ category: categoryId })
-    if (productsCount > 0) {
-        return next(new AppError(`Cannot delete category "${category.name}" because it is currently linked to ${productsCount} product(s). Please delete or update those products first!`,400)
-    )
-  }
+    const hasProducts = await Product.exists({ category: Id })
+    if (hasProducts) {
+        return next(
+            new AppError(`Cannot delete "${category.name}" because products are still linked to it.`, 400)
+        )
+    }
+
+    await Category.findByIdAndDelete(id)
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Category deleted successfully'
+    })
 })
 
 module.exports = { createCategory, getAllCategories, getCategory, updateCategory, deleteCategory }

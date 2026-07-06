@@ -1,3 +1,9 @@
-const Product = require('../models/productModel.js')
-const asyncHandler = require('../utils/asyncHandler.js')
-const AppError = require('../utils/appError.js')
+const express = require('express')
+const productController = require('../controllers/productController.js')
+const router = express.Router()
+
+// router for all
+
+// router for id
+
+module.exports = router
