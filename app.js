@@ -7,9 +7,10 @@ const app = express()
 
 app.use(express.json())
 
-app.use(mongoSanitize())
+// app.use(mongoSanitize()) //broken
 
-// need routes
+app.use('/api/categories', require('./routes/categoryRoutes.js'))
+// app.use('/api/products', require('./routes/productRoutes.js'))
 
 // need 404
 
