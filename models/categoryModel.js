@@ -8,9 +8,11 @@ const categorySchema = new mongoose.Schema(
             unique: [true, "Category already exists"],
             trim: true
         },
+
         description: {
             type: String
         },
+        
         slug: {
             type: String,
             lowercase: true,

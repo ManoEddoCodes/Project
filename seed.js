@@ -12,8 +12,8 @@ async function seedDB() {
           await mongoose.connection.collection('orders').deleteMany({})
         }
 
-        await Category.deleteMany({})
         await Product.deleteMany({})
+        await Category.deleteMany({})
 
         const categories = await Category.insertMany([
         { name: 'Electronics', description: 'Gadgets & Devices', slug: 'electronics'},
