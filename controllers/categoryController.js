@@ -28,6 +28,7 @@ const createCategory = asyncHandler(async (req, res, next) => {
 
 const getAllCategories = asyncHandler(async (req,res,next) => {
     const categories = await Category.find()
+
     res.status(200).json({
         status: 'success',
         message: 'Categories retrieved successfully',
@@ -35,4 +36,51 @@ const getAllCategories = asyncHandler(async (req,res,next) => {
     })
 })
 
-module.exports = { createCategory, getAllCategories }
+const getCategory = asyncHandler(async (req, res, next) => {
+    const category = await Category.findById(req.params.id)
+
+    if (!category){
+        return next(new AppError('Cannot find a category with that id.', 404))
+    }
+
+    res.status(200).json({
+        status: 'success',
+        data: {category}
+    })
+})
+
+const updateCategory = asyncHandler(async (req,res,next) => {
+    const updatedCategory = await Category.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+            new: true,
+            runValidators: true
+        }
+    )
+    if(!updatedCategory){
+        return next(new AppError('Cannot find a category with that id.', 404))
+    }
+
+    res.status(200).json({
+        status: 'success',
+        data: {updatedCategory}
+    })
+})
+
+const deleteCategory = asyncHandler(async (req, res, next) => {
+    const categoryId = req.params.id
+
+    const category = await Category.findById(categoryId)
+    if (!category) {
+        return next(new AppError('Cannot find a category with that id.', 404))
+    }
+
+    const productsCount = await Product.countDocuments({ category: categoryId })
+    if (productsCount > 0) {
+        return next(new AppError(`Cannot delete category "${category.name}" because it is currently linked to ${productsCount} product(s). Please delete or update those products first!`,400)
+    )
+  }
+})
+
+module.exports = { createCategory, getAllCategories, getCategory, updateCategory, deleteCategory }
