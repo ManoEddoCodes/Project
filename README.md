@@ -1,5 +1,5 @@
 todo: 
-// cart & order & product controllers
+// cart & order & controllers
 // cart & order routes
 // errorHandler
 // double check app.js
