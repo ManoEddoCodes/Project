@@ -1,7 +1,6 @@
 todo: 
-// cart & order & controllers
-// cart & order routes
-// errorHandler
+// order controller
+// order routes
 // double check app.js
 // postman
 // readme file
