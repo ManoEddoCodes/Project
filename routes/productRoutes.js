@@ -4,13 +4,13 @@ const router = express.Router()
 
 router
   .route('/')
-  .get(productController.getProducts)
-  .post(productController.createProduct);
+  .get(productController.getAllProducts)
+  .post(productController.createProduct)
 
 router
   .route('/:id')
   .get(productController.getProduct)
   .put(productController.updateProduct)
-  .delete(productController.deleteProduct);
+  .delete(productController.deleteProduct)
 
 module.exports = router
