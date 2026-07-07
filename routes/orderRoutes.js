@@ -4,7 +4,7 @@ const router = express.Router()
 
 router
   .route("/")
-  .post(orderController.createorder)
+  .post(orderController.createOrder)
   .get(orderController.getOrders)
 
 router

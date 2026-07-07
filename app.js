@@ -16,18 +16,16 @@ const app = express()
 
 app.use(express.json())
 
-// app.use(
-//   mongoSanitize({
-//     allowDots: true,
-//     replaceWith: '_',
-//     dryRun: false 
-//   })
-// ) //BROKEN
+app.use(mongoSanitize())
 
 app.use('/api/categories', categoryRouter)
 app.use('/api/products', productRouter)
+app.use('/api/cart', cartRouter)
+app.use('/api/orders', orderRouter)
 
-// need 404
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404))
+})
 
 app.use(errorHandler)
 

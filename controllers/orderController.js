@@ -17,17 +17,18 @@ const createOrder = asyncHandler(async (req, res, next) => {
         return next(new AppError('Your cart is empty.', 400))
     }
 
-    const orderItems = cart.items.map(item => {
+    const orderItems = []
+    for (const item of cart.items) {
         if (!item.product) {
             return next(new AppError('One of the products in your cart no longer exists.', 404))
         }
-        return {
+        orderItems.push({
             product: item.product._id,
             name: item.product.name, 
             price: item.product.price,  
             quantity: item.quantity
-        }
-    })
+        })
+    }
 
     const newOrder = await Order.create({
         userId,
