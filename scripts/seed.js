@@ -1,8 +1,8 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const connectDB = require('./db/connection.js')
-const Category = require('./models/categoryModel.js')
-const Product = require('./models/productModel.js')
+const {connectDB, disconnectDB} = require('../db/connection.js')
+const Category = require('../models/categoryModel.js')
+const Product = require('../models/productModel.js')
 
 async function seedDB() {
     try{
@@ -80,9 +80,9 @@ async function seedDB() {
         await Product.insertMany(products)
         console.log("Database Seeding Complete")
     } catch (error){
-        console.log("An errorhas occured while seeding:", error.message)
+        console.log("An error has occured while seeding:", error.message)
     } finally {
-        await mongoose.disconnect()
+        await disconnectDB()
         process.exit(0)
     }
 }
