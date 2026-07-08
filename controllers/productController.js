@@ -64,7 +64,7 @@ const updateProduct = asyncHandler(async (req, res, next) => {
       new: true,
       runValidators: true,
     },
-  ).populate("category");
+  ).populate("category")
 
   if (!updatedProduct) {
     return next(new AppError("No product found with that ID", 404))

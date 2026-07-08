@@ -10,7 +10,7 @@ const orderRouter = require('./routes/orderRoutes.js')
 const connectDB = require('./db/connection.js')
 
 const PORT = process.env.PORT
-const NODE_ENV = process.env.NODE_ENV
+const NODE_ENV = 'production'
 
 const app = express()
 
